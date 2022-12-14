@@ -1,24 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { useState,useEffect } from "react";
+import CreateNotes from "./modules/Createnotes/CreateNotes";
+import Notes from "./modules/Createnotes/Notes";
+import Navigation from "./modules/NavigationBar/Navigation";
+import Todo from "./modules/CRUD/todo";
+import { json } from "react-router-dom";
+// import Footer from './modules/Footer'
 function App() {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const addNotes = (notes) => {
+    setData((prevData) => {
+      return [...prevData, notes];
+    },
+    localStorage.setItem('notes',JSON.stringify(notes)) 
+    );
+    // console.log(notes)
+  };
+  const deleteItem = (id) => {
+    setData((oldData) => {
+      return oldData.filter((current, index) => {
+        return index !== id;
+      });
+    });
+  };
+
+  useEffect(() => {
+    localStorage.getItem('notes')
+  }, [])
+  
+
+  
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navigation />
+      <CreateNotes postNote={addNotes} />
+
+      <Notes />
+      {!loading ? (
+        data.map((elm, i) => {
+          return (
+            <Notes
+              key={i}
+              id={i}
+              title={elm.title}
+              content={elm.content}
+              deleteItem={deleteItem}
+            />
+          );
+        })
+      ) : (
+        <Notes />
+      )}
+      {/* <Footer/> */}
+
+      <Todo/>
+    </>
   );
 }
 
