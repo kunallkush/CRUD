@@ -5,6 +5,7 @@ import Notes from "./modules/Createnotes/Notes";
 import Navigation from "./modules/NavigationBar/Navigation";
 import Todo from "./modules/CRUD/todo";
 import { json } from "react-router-dom";
+import Employee from "./NewCRUD/Employee";
 // import Footer from './modules/Footer'
 function App() {
   const [loading, setLoading] = useState(false);
@@ -34,7 +35,7 @@ function App() {
   
   return (
     <>
-      <Navigation />
+      {/* <Navigation />
       <CreateNotes postNote={addNotes} />
 
       <Notes />
@@ -52,10 +53,12 @@ function App() {
         })
       ) : (
         <Notes />
-      )}
+      )} */}
       {/* <Footer/> */}
 
-      <Todo/>
+      {/* <Todo/> */}
+
+      <Employee/>
     </>
   );
 }
