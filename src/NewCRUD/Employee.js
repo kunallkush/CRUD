@@ -1,9 +1,7 @@
 import React from "react";
-import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons/lib/icons";
 import { Button } from "antd";
-import { json } from "react-router-dom";
 
 function Employee() {
   let setLocalItem = () => {
@@ -40,7 +38,7 @@ function Employee() {
     else if (inputData && !loading) {
       setData(
         data.map((elm, index) => {
-          if (elm.id == updateId.current) {
+          if (elm.id === updateId.current) {
             return { ...elm, inputData: inputData };
           } else {
             return elm;
